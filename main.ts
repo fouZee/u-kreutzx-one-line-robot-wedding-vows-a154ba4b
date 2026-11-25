@@ -22,9 +22,13 @@ function main(): void {
       `entry is ${text.length} characters, over the ${MAX_CHARS} limit`,
     );
   }
+  if (/[\r\n]/.test(text)) {
+    throw new Error("entry must be a single line");
+  }
   mkdirSync("/output", { recursive: true });
   writeFileSync("/output/entry.txt", text, "utf8");
   console.log(`wrote ${text.length} characters to /output/entry.txt`);
+  console.log(`entry: ${text}`);
 }
 
 main();
